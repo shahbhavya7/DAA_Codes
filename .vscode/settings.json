@@ -1,6 +1,11 @@
 {
     "files.associations": {
         "*.ejs": "html",
+<<<<<<< HEAD
         "string": "cpp"
+=======
+        "iostream": "cpp",
+        "thread": "cpp"
+>>>>>>> bd3e2df (2nd commit)
     }
 }
