@@ -22,7 +22,7 @@ class avl_tree{
     avl_node* lr_rotation(avl_node *);
     avl_node* rl_rotation(avl_node *);
     void inorder(avl_node *);
-    
+    avl_node* create(char word[], char meaning[]);
 
     void insert() {
         char ch;
