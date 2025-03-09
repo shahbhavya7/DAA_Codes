@@ -12,6 +12,9 @@ class avl_node{
 
 class avl_tree{
     public:
+    avl_node *root; // Add this line to define root
+    avl_tree() : root(NULL) {}
+    public:
     avl_node* insert(avl_node *,  avl_node *);
     avl_node* balance(avl_node *);
     int height(avl_node *);
@@ -23,19 +26,17 @@ class avl_tree{
     avl_node* rl_rotation(avl_node *);
     void inorder(avl_node *);
     avl_node* create(char word[], char meaning[]);
-
-    void insert() {
-        char ch;
-        do {
-            avl_node *temp = new avl_node;
-            cout << "Enter word and its meaning: ";
-            cin >> temp->word >> temp->meaning;
-            root = insert(root, temp);
-            cout << "Do you want to insert another node? (Y/N): ";
-            cin >> ch;
-        } while (ch == 'Y' || ch == 'y');
-    }   
+ 
 };
+
+avl_node* avl_tree::create(char word[], char meaning[]) {
+    avl_node *temp = new avl_node;
+    strcpy(temp->word, word);
+    strcpy(temp->meaning, meaning);
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
 
 // avl_node* avl_tree::insert(avl_node *root, char word[], char meaning[]){
 //     if (root == NULL) {
@@ -150,9 +151,9 @@ avl_node* avl_tree::rl_rotation(avl_node *parent){
 
 int main() {
     avl_tree avl;
-    avl_node *root = NULL;
     int choice;
     char word[50], meaning[50];
+    avl_node *temp = new avl_node;
 
     while (1) {
         cout << "1. Create the first node" << endl;
@@ -163,7 +164,7 @@ int main() {
         cin >> choice;
         switch (choice) {
             case 1:
-                if (root != NULL) {
+                if (avl.root != NULL) {
                     cout << "The tree already has a root node." << endl;
                     break;
                 }
@@ -171,10 +172,10 @@ int main() {
                 cin >> word;
                 cout << "Enter meaning: ";
                 cin >> meaning;
-                root = avl.create(word, meaning);
+                avl.root = avl.create(word, meaning);
                 break;
             case 2:
-                if (root == NULL) {
+                if (avl.root == NULL) {
                     cout << "The tree does not have a root node. Please create the first node first." << endl;
                     break;
                 }
@@ -182,15 +183,17 @@ int main() {
                 cin >> word;
                 cout << "Enter meaning: ";
                 cin >> meaning;
-                root = avl.insert(root, word, meaning);
+                strcpy(temp->word, word);
+                strcpy(temp->meaning, meaning);
+                avl.root = avl.insert(avl.root, temp);
                 break;
             case 3:
-                if (root == NULL) {
+                if (avl.root == NULL) {
                     cout << "Tree is Empty" << endl;
                     continue;
                 }
                 cout << "Inorder Traversal of AVL tree is: " << endl;
-                avl.inorder(root);
+                avl.inorder(avl.root);
                 cout << endl;
                 break;
             case 4:
