@@ -4,7 +4,7 @@ vector<int> selected;
 
 int knapsack(int W, int wt[], int val[], int n)
 {
-    int B[n + 1][W + 1]; // Create a 2D array to store the values
+    int B[n + 1][W + 1]; 
     for (int w = 0; w <= W; w++)
     {
         B[0][w] = 0;
@@ -28,7 +28,7 @@ int knapsack(int W, int wt[], int val[], int n)
         }
     }
     int w = W;
-    for (int i = n; i > 0 && w > 0; i--) { // start from the last item 
+    for (int i = n; i > 0 && w > 0; i--) { 
         if (B[i][w] != B[i - 1][w]) {
             selected.push_back(i - 1); 
             w -= wt[i - 1];
@@ -59,7 +59,7 @@ int main()
 
     cout << "The items selected are: ";
     for (int i = 0; i < selected.size(); i++) {
-        cout << selected[i] + 1 << " "; // Display item indices (1-based)
+        cout << selected[i] + 1 << " "; 
     }
     cout << endl;
     return 0;
