@@ -135,54 +135,29 @@ void Student::display(){
     cout<<rec.roll_no<<"\t"<<rec.name<<"\t"<<rec.marks<<endl;
 }
 
-void Student::displayall() {
+void Student::displayall(){
     cout << "\n Displaying HashTable: \n";
     cout << "Index\tRoll No\tPosition in File\n";
     for (int i = 0; i < TABLE_SIZE; i++) {
         cout << i << "\t" << h[i].roll_no << "\t" << h[i].pos << endl;
     }
-    
-    int positions[TABLE_SIZE];
-    int indices[TABLE_SIZE];
-    int count = 0;
-    
-    for (int i = 0; i < TABLE_SIZE; i++) {
-        if (h[i].roll_no != -1) {
-            positions[count] = h[i].pos;
-            indices[count] = i;
-            count++;
-        }
-    }
-    
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = 0; j < count - i - 1; j++) {
-            if (positions[j] > positions[j + 1]) {
-                int temp = positions[j];
-                positions[j] = positions[j + 1];
-                positions[j + 1] = temp;
-                
-                temp = indices[j];
-                indices[j] = indices[j + 1];
-                indices[j + 1] = temp;
-            }
-        }
-    }
-    
-    cout << "\nStudent Records (in order of file position):\n";
+
+   cout << "\nRecords in order of insertion:\n";
     cout << "Roll No\tName\tMarks\n";
     fstream f;
     f.open("student.txt", ios::binary | ios::in);
     
-    // Display records in the order of positions
-    for (int i = 0; i < count; i++) {
-        int idx = indices[i];
-        int p = h[idx].pos * s;
-        f.seekg(p, ios::beg);
+    // Simply read records sequentially from the file
+    for (int i = 0; i < relt; i++) {
+        f.seekg(i * s, ios::beg);
         f.read((char*)&rec, s);
         display();
     }
+    
     f.close();
 }
+
+
 
 void Student ::retrieve(){
     fstream f;
